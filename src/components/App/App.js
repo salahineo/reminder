@@ -1,6 +1,9 @@
 // Libraries
-import React from "react";
+import React, {useState} from "react";
 import {connect} from "react-redux";
+import moment from "moment";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 // Actions
 import {addAction} from "../../actions/addAction";
@@ -24,7 +27,7 @@ class App extends React.Component {
                   <li key={reminder.id} className="list-group-item d-flex justify-content-between align-items-center">
                     <div className="reminder d-flex flex-column">
                       <span className="note">{reminder.note}</span>
-                      <span className="date">{reminder.date}</span>
+                      <span className="date">{moment(new Date(reminder.date)).fromNow()}</span>
                     </div>
                     <div className="control">
                       <span className="close bg-danger">&times;</span>
@@ -76,7 +79,7 @@ class App extends React.Component {
           <img className="img-fluid" src="./images/app.png" alt="App" />
         </div>
         <div className="app-title">
-          <h2>Reminder Notes</h2>
+          <h2>Tasks Reminder</h2>
         </div>
         <div className="alert-container">
 
@@ -88,10 +91,18 @@ class App extends React.Component {
                    placeholder="What do you think?"
                    value={this.state.note}
                    onChange={(e) => this.setState({note: e.target.value})} />
-            <input className="form-control"
-                   type="datetime-local"
-                   value={this.state.date}
-                   onChange={(e) => this.setState({date: e.target.value})} />
+            <DatePicker
+              className="form-control"
+              selected={this.state.date}
+              value={this.state.date}
+              onChange={(date) => this.setState({date: date})}
+              showTimeSelect
+              timeFormat="HH:mm aa"
+              timeIntervals={15}
+              timeCaption="Time"
+              dateFormat="MMMM d, yyyy h:mm aa"
+              placeholderText="When do you make it?"
+            />
             <button className="btn btn-primary btn-block"
                     onClick={() => this.validateInput(this.state.note, this.state.date)}>
               Add Reminder

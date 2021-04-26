@@ -40,9 +40,18 @@ body {
   margin-bottom: 10px;
 }
 
+.app-reminders ul li {
+  margin-bottom: 1px;
+}
+
+.react-datepicker-wrapper {
+  width: 100%;
+}
+
 .app-reminders .date {
   font-size: 13px;
   color: #aaaaaa;
+  text-transform: capitalize;
 }
 
 .app-reminders .note {
