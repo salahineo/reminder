@@ -1,4 +1,5 @@
 {
+  "home": "https://salahineo.github.io/reminder/",
   "name": "app",
   "version": "0.1.0",
   "private": true,
@@ -7,6 +8,7 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "bootstrap": "^4.6.0",
+    "gh-pages": "^3.1.0",
     "moment": "^2.29.1",
     "react": "^17.0.2",
     "react-datepicker": "^3.8.0",
@@ -18,6 +20,8 @@
     "web-vitals": "^1.0.1"
   },
   "scripts": {
+    "predeploy" : "npm run build",
+    "deploy" : "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
