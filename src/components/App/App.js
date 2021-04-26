@@ -1,13 +1,14 @@
 // Libraries
-import React, {useState} from "react";
+import React from "react";
 import {connect} from "react-redux";
 import moment from "moment";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
-// Actions
-import {addAction} from "../../actions/addAction";
-
+// Action Creators
+import addAction from "../../actions/addAction";
+import removeAction from "../../actions/removeAction";
+import clearAllAction from "../../actions/clearAllAction";
 
 class App extends React.Component {
   // Local State To Store Input Values
@@ -16,7 +17,8 @@ class App extends React.Component {
     date: ""
   };
 
-  checkReminders() {
+  Reminders() {
+    // Check If There Are Reminders Exist
     if (this.props.reminders.length) {
       return (
         <div className="app-reminders">
@@ -30,14 +32,18 @@ class App extends React.Component {
                       <span className="date">{moment(new Date(reminder.date)).fromNow()}</span>
                     </div>
                     <div className="control">
-                      <span className="close bg-danger">&times;</span>
+                      <span className="close bg-danger"
+                            onClick={() => this.props.removeAction(reminder.id)}>&times;</span>
                     </div>
                   </li>
                 );
               })
             }
           </ul>
-          <button className="btn btn-danger btn-block">Clear All Reminders</button>
+          <button className="btn btn-danger btn-block"
+                  onClick={() => this.props.clearAllAction()}>
+            Clear All Reminders
+          </button>
         </div>
       );
     } else {
@@ -51,11 +57,12 @@ class App extends React.Component {
 
   validateInput(note, date) {
     if (note === "" || date === "") {
+      // Show Error Message
       this.triggerAlert("All Inputs Are Required", "danger");
     } else {
       // Send Data To Save It In App State
       this.props.addAction(note, date);
-      // Clear Local Component State
+      // Clear Local Component State (Input Values)
       this.setState({
         note: "",
         date: ""
@@ -88,7 +95,7 @@ class App extends React.Component {
           <form onSubmit={(e) => e.preventDefault()}>
             <input className="form-control"
                    type="text"
-                   placeholder="What do you think?"
+                   placeholder="What do you want to do?"
                    value={this.state.note}
                    onChange={(e) => this.setState({note: e.target.value})} />
             <DatePicker
@@ -101,18 +108,17 @@ class App extends React.Component {
               timeIntervals={15}
               timeCaption="Time"
               dateFormat="MMMM d, yyyy h:mm aa"
-              placeholderText="When do you make it?"
+              placeholderText="When do you want to make it?"
             />
             <button className="btn btn-primary btn-block"
                     onClick={() => this.validateInput(this.state.note, this.state.date)}>
               Add Reminder
             </button>
           </form>
-          {this.checkReminders()}
+          {this.Reminders()}
         </div>
       </div>
-    )
-      ;
+    );
   }
 }
 
@@ -127,7 +133,9 @@ const mapStateToProps = (state) => {
 // Trigger Action To State Function
 const mapDispatchToProps = (dispatch) => {
     return {
-      addAction: (note, date) => dispatch(addAction(note, date))
+      addAction: (note, date) => dispatch(addAction(note, date)),
+      removeAction: (id) => dispatch(removeAction(id)),
+      clearAllAction: () => dispatch(clearAllAction())
     };
   }
 ;

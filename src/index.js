@@ -9,7 +9,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import root from "./reducers/root";
 
 // CSS
-import './index.css'
+import "./index.css";
 
 // Components
 import App from "./components/App/App";

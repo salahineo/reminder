@@ -1,3 +1,7 @@
+* {
+  box-sizing: border-box;
+}
+
 body {
   background-color: #d9eeff
 }
@@ -22,8 +26,8 @@ body {
   margin-bottom: 10px;
 }
 
-.app-input form button.disabled {
-  cursor: not-allowed;
+.app-input form .react-datepicker-wrapper input {
+  cursor: pointer;
 }
 
 .app-reminders {
