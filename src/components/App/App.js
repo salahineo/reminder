@@ -5,6 +5,9 @@ import moment from "moment";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+// Components
+import Footer from "../Footer/Footer";
+
 // Action Creators
 import addAction from "../../actions/addAction";
 import removeAction from "../../actions/removeAction";
@@ -117,6 +120,7 @@ class App extends React.Component {
           </form>
           {this.Reminders()}
         </div>
+        <Footer />
       </div>
     );
   }
