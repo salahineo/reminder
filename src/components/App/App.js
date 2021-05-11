@@ -86,7 +86,7 @@ class App extends React.Component {
     return (
       <div className="app">
         <div className="app-image">
-          <img className="img-fluid" src="./images/app.png" alt="App" />
+          <img className="img-fluid" src={process.env.PUBLIC_URL + "/images/app.png"} alt="App" />
         </div>
         <div className="app-title">
           <h2>Tasks Reminder</h2>
